@@ -2,7 +2,7 @@
 
 Use the Vimeo API to pull in videos
 
-![Screenshot](resources/img/plugin-logo.png)
+![Screenshot](/src/icon.svg)
 
 ## Requirements
 
