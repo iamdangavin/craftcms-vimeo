@@ -1,0 +1,17 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+    first: true,
+    label: "API Key",
+    name: 'vimeoAPIKey',
+    value: settings.vimeoAPIKey,
+    instructions: 'API Key from your Vimeo Pro Account.' | t('vimeo-api'),
+}) }}
+
+{{ forms.textField({
+    label: "Cache Duration",
+    name: 'vimeoAPICache',
+    value: settings.vimeoAPICache,
+    type: 'number',
+    instructions: 'Cache duration (in milliseconds) to cache requests.' | t('vimeo-api'),
+}) }}

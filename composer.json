@@ -1,0 +1,39 @@
+{
+    "name": "iamdangavin/vimeo",
+    "description": "Vimeo API to pull in videos from a URL",
+    "type": "craft-plugin",
+    "version": "2.0.2",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "vimeoapi"
+    ],
+    "support": {
+        "docs": "???",
+        "issues": "???"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dan Gavin",
+            "homepage": "https://iamdangavin.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "iadg\\vimeo\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Vimeo API",
+        "handle": "vimeo",
+        "developer": "Dan Gavin",
+        "developerUrl": "https://iamdangavin.com",
+        "class": "iadg\\vimeo\\Vimeo"
+    }
+}
