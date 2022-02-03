@@ -28,7 +28,7 @@ To install the plugin, follow these instructions.
 
 ## Configuring Vimeo API
 
--Insert text here-
+1. You will need to have access to Vimeo Pro to obtain your API Key
 
 ## Using Vimeo API
 
