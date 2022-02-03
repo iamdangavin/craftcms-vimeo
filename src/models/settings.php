@@ -1,6 +1,6 @@
 <?php
 
-namespace iadg\vimeo\models;
+namespace iamdangavin\vimeo\models;
 
 use craft\base\Model;
 

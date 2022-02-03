@@ -1,6 +1,6 @@
 <?php
 /**
- * vimeoAPI plugin for Craft CMS 3.x
+ * Vimeo API plugin for Craft CMS 3.x
  *
  * Use the Vimeo API to pull in videos
  *
@@ -14,13 +14,16 @@ namespace iamdangavin\vimeo;
 use Craft;
 use craft\base\Plugin;
 use craft\services\Path;
+use craft\services\Fields;
 use craft\web\twig\variables\CraftVariable;
 use craft\web\twig\variables\Cp;
 use craft\web\UrlManager;
 use craft\events\RegisterUrlRulesEvent;
 use craft\events\RegisterCpNavItemsEvent;
+use craft\events\RegisterComponentTypesEvent;
 use yii\base\Event;
 use iamdangavin\vimeo\services\getVimeo as getVimeoService;
+use iamdangavin\vimeo\fields\vimeoFieldType;
 
 /**
  * Craft plugins are very much like little applications in and of themselves. We’ve made
@@ -32,8 +35,8 @@ use iamdangavin\vimeo\services\getVimeo as getVimeoService;
  *
  * https://docs.craftcms.com/v3/extend/
  *
- * @author    BIG Communications
- * @package   VimeoAPI
+ * @author    Dan GAvin
+ * @package   vimeo
  * @since     1.0.0
  *
  */
@@ -101,6 +104,18 @@ class Vimeo extends Plugin
                 /** @var CraftVariable $variable */
                 $variable = $event->sender;
                 $variable->set('vimeo', getVimeoService::class);
+            }
+        );
+        
+        Event::on(
+            Fields::class,
+            Fields::EVENT_REGISTER_FIELD_TYPES,
+            function (RegisterComponentTypesEvent $event) {
+                Craft::debug(
+                    'Fields::EVENT_REGISTER_FIELD_TYPES',
+                    __METHOD__
+                );
+                $event->types[] = vimeoFieldType::class;
             }
         );
         

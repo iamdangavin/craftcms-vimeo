@@ -1,0 +1,31 @@
+{% import "_includes/forms" as _forms %}
+
+{% set isCode = field.code is defined and field.code %}
+{% set url = value.url is defined and value.url %}
+{% set autoplay = value.autoplay is defined and value.autoplay %}
+
+{% set config = {
+	id: name ~ '[url]',
+	name: name ~ '[url]',
+	value: (url ? value.url),
+	class: 'nicetext'~(isCode ? ' code'),
+	maxlength: field.charLimit,
+	showCharsLeft: true,
+	placeholder: field.placeholder|t('site'),
+	rows: field.initialRows
+} %}
+
+{% if field.multiline %}
+	{{ _forms.textarea(config) }}
+{% else %}
+	{{ _forms.text(config) }}
+{% endif %}
+
+{{ _forms.lightswitchField({
+	label: "GIF Video" | t('vimeo'),
+	instructions: "Autoplay your video without controls or audio like a GIF",
+	id: name ~ '[autoplay]',
+	name: name ~ '[autoplay]',
+	on: (autoplay ? 'on'),
+	errors: field.getErrors(name ~ '[autoplay]'),
+}) }}
