@@ -47,8 +47,19 @@ class getVimeo
 		$return = $this->getTMPVimeo('https://api.vimeo.com/videos/' . $video_id, $access_cache, $context);
 		$return = json_decode($return);
 		$srcs = array();
-
-		if(isset($return->download)) {
+		
+		// Check for files first
+		if(isset($return->files)){
+			foreach($return->files as $file) {
+				if(isset($file->width)) {
+					$file->poster = str_replace('_1280', '', $return->pictures[0]->link);
+					$file->fallbackurl = $return->link;
+					$file->name = $return->name;
+					$srcs[] = $file;
+				}
+			}
+		// Then downloadable files
+		}elseif(isset($return->download)) {
 			foreach($return->download as $file) {
 				if(isset($file->width)) {
 					$file->poster = str_replace('_1280', '', $return->pictures[0]->link);
@@ -57,6 +68,8 @@ class getVimeo
 					$srcs[] = $file;
 				}
 			}
+		}else{
+			return;
 		}
 
 		usort($srcs, function($a, $b){
@@ -92,7 +105,10 @@ class getVimeo
 		$cache_file = $cache_file . '/' . md5($url) . '.cache';
 
 		// Still cached
-		if(file_exists($cache_file) && (filemtime($cache_file) > (time() - 60 * $cachetime))) {
+		if(
+			file_exists($cache_file) &&
+			(filemtime($cache_file) > (time() - 60 * $cachetime))
+		){
 			$results = file_get_contents($cache_file);
 			return $results;
 		}else{
